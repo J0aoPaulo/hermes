@@ -1,52 +1,74 @@
-# Sistema de Helpdesk - README
+# 🔧 Sistema de Helpdesk
 
-## Descrição do Projeto
+Bem-vindo ao projeto **Sistema de Helpdesk**! Este repositório apresenta uma solução completa para gestão de chamados e suporte técnico em cenários empresariais diversos.
 
-O **Sistema de Helpdesk** é uma aplicação desenvolvida para gerenciar solicitações de suporte técnico de forma organizada e eficiente. Ele funciona como uma "central de atendimento digital", onde clientes podem relatar problemas técnicos e as empresas podem gerenciar essas solicitações através de fluxos estruturados de atendimento.
+## 💡 O que é um Sistema de Helpdesk?
+Imagine um sistema como uma "central de atendimento digital" onde clientes podem relatar problemas técnicos e empresas podem gerenciar e resolver essas solicitações de forma organizada e eficiente.
 
-### Contexto de Uso
+---
 
-Este sistema é ideal para:
-- **Empresas de Tecnologia**: Onde clientes podem relatar problemas com softwares, bugs, ou orientações técnicas.
-- **Departamentos de TI de Grandes Empresas**: Que precisam gerenciar problemas de infraestrutura, suporte a sistemas internos e solicitações de equipamentos novos.
+## 🌐 Contexto Real: Como Funciona na Prática
 
-### Funcionalidades Principais
+### Cenário 1: Empresa de Tecnologia
+Uma empresa de software recebe diversos chamados de clientes:
 
-1. **Registro de Chamados**  
-   Cada chamado possui as seguintes informações:
-    - **Título descritivo**: Uma breve descrição do problema.
-    - **Descrição detalhada**: Explicação mais detalhada do problema enfrentado.
-    - **Categoria**: Tipo de problema (Hardware, Software, Rede, etc.).
-    - **Prioridade**: Níveis que variam de Baixa, Média, Alta e Crítica.
-    - **Status**: Pode ser Aberto, Em Andamento, Resolvido ou Fechado.
+- 🔷 Um cliente não consegue instalar o software.
+- 🔷 Outro reporta um bug no sistema.
+- 🔷 Um terceiro precisa de uma orientação técnica.
 
-2. **Fluxo de Atendimento**
-    - **Cliente abre um chamado**: O cliente cria uma solicitação com os detalhes do problema.
-    - **Classificação automática**: O sistema classifica o chamado automaticamente com base em categorias e prioridades.
-    - **Notificação para técnico**: A equipe de suporte é notificada sobre o chamado.
-    - **Técnico analisa e assume o chamado**: Um técnico se encarrega do problema e registra as ações realizadas.
-    - **Resolução e fechamento**: Após a resolução, o chamado é fechado e o cliente recebe feedback.
+### Cenário 2: Departamento de TI de uma Grande Empresa
+O setor de TI precisa gerenciar:
 
-3. **Níveis de Atendimento**
-    - **Nível 1**: Suporte básico para problemas simples.
-    - **Nível 2**: Problemas mais complexos que requerem conhecimentos técnicos específicos.
-    - **Nível 3**: Problemas avançados que podem necessitar desenvolvimento ou engenharia.
+- 🔷 Problemas de infraestrutura.
+- 🔷 Suporte a computadores e sistemas internos.
+- 🔷 Solicitações de novos equipamentos.
 
-## Tecnologias Utilizadas
+---
 
-- **Back-end**: Java com Spring Boot
-- **Banco de Dados**: PostgreSQL
-- **Autenticação e Autorização**: JWT
-- **Ferramentas de Versionamento**: Git
+## 🔎 Funcionalidades Detalhadas do Sistema
 
-## Como Rodar o Projeto Localmente
+### 🔖 1. Registro de Chamados
 
-1. **Pré-requisitos**
-    - JDK 11 ou superior
-    - Maven ou Gradle
-    - Banco de dados PostgreSQL configurado
+Cada chamado terá:
+- 🔍 **Título** descritivo.
+- 🕵️ **Descrição** detalhada do problema.
+- 🔢 **Categoria** (Hardware, Software, Rede, etc.).
+- 🕛 **Prioridade** (Baixa, Média, Alta, Crítica).
+- 🔒 **Status** (Aberto, Em Andamento, Resolvido, Fechado).
 
-2. **Clone o repositório**
-   ```bash  
-   git clone https://github.com/J0aoPaulo/hermes
-   cd sistema-de-helpdesk  
+### 💡 2. Fluxo de Atendimento
+
+1. 📢 Cliente abre um chamado.
+2. 🔄 Sistema classifica automaticamente.
+3. 📨 Técnico é notificado.
+4. 🔧 Técnico analisa e assume o chamado.
+5. 🏦 Resolução e registro de ações.
+6. 🌐 Fechamento com feedback do cliente.
+
+### 🏋️‍♂️ 3. Níveis de Atendimento
+
+- **Nível 1**: 💡 Suporte básico, resolução de problemas simples.
+- **Nível 2**: 🦜 Problemas mais complexos, requer conhecimento técnico específico.
+- **Nível 3**: 📚 Problemas avançados, pode envolver desenvolvimento ou engenharia.
+
+---
+
+## 🔎 Tecnologias Utilizadas
+
+- 📊 **Backend**: Java, Spring Boot
+- 📊 **Banco de Dados**: MySQL ou PostgreSQL
+- 📊 **Mensageria**: RabbitMQ
+- 📊 **Docker**: Para conteinerização
+- 📊 **Cloud**: Deploy em plataformas como AWS ou Azure
+
+---
+
+## 🛠️ Como Contribuir
+
+1. Fork este repositório.
+2. Crie um branch com sua feature: `git checkout -b minha-feature`.
+3. Commit suas alterações: `git commit -m 'Adiciona nova feature'`.
+4. Dê push no branch: `git push origin minha-feature`.
+5. Abra um Pull Request.
+
+---
