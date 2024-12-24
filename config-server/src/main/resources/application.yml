@@ -12,3 +12,8 @@ spring:
           uri: https://github.com/J0aoPaulo/hermes-config
           username: ${GIT_USERNAME}
           password: ${GIT_PASSWORD}
+
+eeureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/
