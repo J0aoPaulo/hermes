@@ -1,10 +1,9 @@
 server:
-  port: 8888
+  port: 8181
 
 spring:
   application:
     name: config-server
-
   cloud:
     config:
       server:
@@ -12,8 +11,3 @@ spring:
           uri: https://github.com/J0aoPaulo/hermes-config
           username: ${GIT_USERNAME}
           password: ${GIT_PASSWORD}
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/
