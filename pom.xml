@@ -20,7 +20,6 @@
 	<modules>
 		<module>discovery-service</module>
 		<module>ticket-service</module>
-		<module>config-server</module>
 		<module>api-gateway</module>
 	</modules>
 	<dependencies>
@@ -35,10 +34,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
