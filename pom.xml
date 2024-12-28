@@ -8,10 +8,10 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.hermes</groupId>
-	<artifactId>helpdesk-system</artifactId>
+	<artifactId>hermes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>helpdesk-system</name>
+	<name>hermes</name>
 	<description>Helpdesk system with microservices</description>
 	<properties>
 		<java.version>21</java.version>
@@ -21,6 +21,7 @@
 		<module>discovery-service</module>
 		<module>ticket-service</module>
 		<module>api-gateway</module>
+		<module>user-service</module>
 	</modules>
 	<dependencies>
 		<dependency>
@@ -61,6 +62,11 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+				<version>3.4.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>
@@ -75,18 +81,6 @@
 							<artifactId>lombok</artifactId>
 						</path>
 					</annotationProcessorPaths>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
