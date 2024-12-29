@@ -1,12 +1,8 @@
 package com.hermes.user_service.entity;
 
 import com.hermes.user_service.entity.enums.Role;
-import com.hermes.ticket_service.entity.Ticket;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -35,9 +31,6 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @OneToMany(mappedBy = "user")
-    private List<Ticket> tickets = new ArrayList<>();
 
     private Boolean active = true;
 }
