@@ -10,7 +10,6 @@ import java.util.UUID;
 @Table(name = "users")
 @NoArgsConstructor
 @EqualsAndHashCode
-@Setter
 public class User {
 
     @Id
@@ -65,5 +64,25 @@ public class User {
 
     public Boolean getActive() {
         return active;
+    }
+
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    public void setPassword(@NonNull String password) {
+        this.password = password;
+    }
+
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+    }
+
+    public void setRole(@NonNull Role role) {
+        this.role = role;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
