@@ -1,4 +1,4 @@
-package com.hermes.eureka_server;
+package com.hermes.discovery_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
