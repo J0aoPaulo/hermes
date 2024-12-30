@@ -1,12 +1,17 @@
 package com.hermes.ticket_service.entity;
 
+import com.hermes.ticket_service.entity.enums.TicketCategory;
+import com.hermes.ticket_service.entity.enums.TicketPriority;
+import com.hermes.ticket_service.entity.enums.TicketStatus;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "tickets")
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -17,5 +22,26 @@ public class Ticket {
     private Long id;
 
     @Column(nullable = false)
-    private String userId;
+    @NonNull
+    private UUID userId;
+
+    @Column(nullable = false)
+    @NonNull
+    private String title;
+
+    @Column(nullable = false)
+    @NonNull
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    private TicketCategory categoria;
+
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    private TicketPriority prioridade;
+
+    @Enumerated(EnumType.STRING)
+    @NonNull
+    private TicketStatus status;
 }

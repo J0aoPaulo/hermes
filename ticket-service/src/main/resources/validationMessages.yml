@@ -1,0 +1,4 @@
+required:
+  title: title is required
+  description: description is required
+  category: category is required
