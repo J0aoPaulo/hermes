@@ -4,8 +4,10 @@ import com.hermes.ticket_service.entity.enums.TicketCategory;
 import com.hermes.ticket_service.entity.enums.TicketPriority;
 import com.hermes.ticket_service.entity.enums.TicketStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -44,4 +46,8 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     @NonNull
     private TicketStatus status;
+
+    @Column(nullable = false)
+    @NotNull
+    private LocalDateTime createAt;
 }
