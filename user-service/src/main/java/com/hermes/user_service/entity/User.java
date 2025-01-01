@@ -10,6 +10,8 @@ import java.util.UUID;
 @Table(name = "users")
 @NoArgsConstructor
 @EqualsAndHashCode
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -33,14 +35,6 @@ public class User {
     private Role role;
 
     private Boolean active = true;
-
-    public User(UUID id, @NonNull String name, @NonNull String password, @NonNull String email, @NonNull Role role) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-    }
 
     public UUID getId() {
         return id;
