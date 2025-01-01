@@ -1,8 +1,8 @@
 package com.hermes.user_service.controller;
 
-import com.hermes.user_service.controller.dto.CreateUserDto;
-import com.hermes.user_service.controller.dto.ResponseUserDto;
-import com.hermes.user_service.controller.dto.UpdateUserDto;
+import com.hermes.user_service.controller.dto.CreateUserRequest;
+import com.hermes.user_service.controller.dto.ResponseUserRequest;
+import com.hermes.user_service.controller.dto.UpdateUserRequest;
 import com.hermes.user_service.repository.UserRepository;
 import com.hermes.user_service.service.UserService;
 import jakarta.transaction.Transactional;
@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     private final UserService userService;
@@ -27,27 +27,27 @@ public class UserController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
-        var userId = userService.createUser(createUserDto);
+    public ResponseEntity<Void> createUser(@RequestBody @Valid CreateUserRequest request) {
+        var userId = userService.createUser(request);
 
         return ResponseEntity.created(URI.create("/api/v1/users/" + userId)).build();
     }
 
     @PutMapping("/{userId}")
     @Transactional
-    public ResponseEntity<UpdateUserDto> updateUser(@PathVariable("userId") UUID userId,
-                                                    @RequestBody @Valid UpdateUserDto updateUserDto) {
+    public ResponseEntity<UpdateUserRequest> updateUser(@PathVariable("userId") UUID userId,
+                                                        @RequestBody @Valid UpdateUserRequest updateUserRequest)
+    {
+        var userUpdated = userService.updateUser(userId, updateUserRequest);
 
-        var userUpdated = userService.updateUser(userId, updateUserDto);
-
-        return ResponseEntity.ok(new UpdateUserDto(userUpdated));
+        return ResponseEntity.ok(new UpdateUserRequest(userUpdated));
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<ResponseUserDto> getUser(@PathVariable("userId") UUID userId) {
+    public ResponseEntity<ResponseUserRequest> getUser(@PathVariable("userId") UUID userId) {
         var user = userService.getUserById(userId);
 
-        return ResponseEntity.ok(new ResponseUserDto(user));
+        return ResponseEntity.ok(new ResponseUserRequest(user));
     }
 
     @DeleteMapping("/{userId}")
