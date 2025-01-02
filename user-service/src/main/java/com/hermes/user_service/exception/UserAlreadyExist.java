@@ -1,4 +1,4 @@
-package com.hermes.user_service.exceptions;
+package com.hermes.user_service.exception;
 
 public class UserAlreadyExist extends RuntimeException {
 

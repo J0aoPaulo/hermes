@@ -59,7 +59,7 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("userId") UUID userId) {
         if(repository.existsById(userId)) {
             repository.deleteById(userId);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         }
 
         return ResponseEntity.notFound().build();
