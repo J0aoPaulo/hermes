@@ -1,15 +1,16 @@
-package com.hermes.user_service.service;
+package com.hermes.user_service.user;
 
-import com.hermes.user_service.controller.dto.CreateUserRequest;
-import com.hermes.user_service.controller.dto.UpdateUserRequest;
-import com.hermes.user_service.entity.User;
+import com.hermes.user_service.user.dto.CreateUserRequest;
+import com.hermes.user_service.user.dto.UpdateUserRequest;
+import com.hermes.user_service.user.dto.UserResponse;
 import com.hermes.user_service.exceptions.UserAlreadyExist;
-import com.hermes.user_service.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -61,5 +62,12 @@ public class UserService {
             throw new NoSuchElementException("User is disabled");
 
         return user;
+    }
+
+    public List<UserResponse> findAllUsers() {
+        return this.repository.findAll()
+                .stream()
+                .map(this.mapper::fromUser)
+                .collect(Collectors.toList());
     }
 }

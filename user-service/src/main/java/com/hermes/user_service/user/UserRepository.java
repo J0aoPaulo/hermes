@@ -1,6 +1,5 @@
-package com.hermes.user_service.repository;
+package com.hermes.user_service.user;
 
-import com.hermes.user_service.entity.User;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
