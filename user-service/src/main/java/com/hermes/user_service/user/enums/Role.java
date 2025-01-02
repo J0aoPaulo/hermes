@@ -1,4 +1,4 @@
-package com.hermes.user_service.entity.enums;
+package com.hermes.user_service.user.enums;
 
 public enum Role {
     CLIENTE,
