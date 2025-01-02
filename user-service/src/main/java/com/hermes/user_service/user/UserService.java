@@ -1,13 +1,13 @@
 package com.hermes.user_service.user;
 
+import com.hermes.user_service.exception.UserNotFound;
 import com.hermes.user_service.user.dto.CreateUserRequest;
 import com.hermes.user_service.user.dto.UpdateUserRequest;
 import com.hermes.user_service.user.dto.UserResponse;
-import com.hermes.user_service.exceptions.UserAlreadyExist;
+import com.hermes.user_service.exception.UserAlreadyExist;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -47,7 +47,7 @@ public class UserService {
     public User updateUser(UUID userId, UpdateUserRequest request) {
         var user = repository
                 .findById(userId)
-                .orElseThrow(() -> new NoSuchElementException("User with " + userId + " not found."));
+                .orElseThrow(() -> new UserNotFound("User with " + userId + " not found."));
 
         setUser(user, request);
         return user;
@@ -56,10 +56,10 @@ public class UserService {
     public User getUserById(UUID userId) {
         var user = repository
                 .findById(userId)
-                .orElseThrow(() -> new NoSuchElementException("User with " + userId + " not found."));
+                .orElseThrow(() -> new UserNotFound("User with " + userId + " not found."));
 
         if (!user.getActive())
-            throw new NoSuchElementException("User is disabled");
+            throw new UserNotFound("User is disabled");
 
         return user;
     }
