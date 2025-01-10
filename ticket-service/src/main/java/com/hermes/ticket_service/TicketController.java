@@ -42,4 +42,12 @@ public class TicketController {
 
         return ResponseEntity.ok(ticketUpdated);
     }
+
+    @DeleteMapping("{/ticketId}")
+    @Transactional
+    public ResponseEntity<Void> deleteTicket(@PathVariable("ticketId") UUID ticketId) {
+        service.deleteTicket(ticketId);
+
+        return ResponseEntity.noContent().build();
+    }
 }
