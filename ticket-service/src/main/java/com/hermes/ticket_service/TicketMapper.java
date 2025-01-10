@@ -1,11 +1,13 @@
 package com.hermes.ticket_service;
 
 import com.hermes.ticket_service.dto.CreateTicketRequest;
+import com.hermes.ticket_service.dto.TicketResponse;
 import com.hermes.ticket_service.enums.TicketPriority;
 import com.hermes.ticket_service.enums.TicketStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -22,5 +24,16 @@ public class TicketMapper {
                 .status(TicketStatus.ABERTO)
                 .createAt(LocalDateTime.now())
                 .build();
+    }
+
+    public TicketResponse fromTicket(Ticket ticket) {
+        return new TicketResponse(
+                ticket.getTitle(),
+                ticket.getDescription(),
+                ticket.getCategoria(),
+                ticket.getPrioridade(),
+                ticket.getStatus(),
+                ticket.getCreateAt()
+        );
     }
 }

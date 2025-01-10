@@ -1,12 +1,14 @@
 package com.hermes.ticket_service;
 
 import com.hermes.ticket_service.dto.CreateTicketRequest;
+import com.hermes.ticket_service.dto.TicketResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -26,5 +28,18 @@ public class TicketController {
 
         UUID ticketId = service.createTicket(request, userId);
         return ResponseEntity.created(URI.create("/api/v1/tickets/" + ticketId)).build();
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<TicketResponse>> findAllTickets() {
+        return ResponseEntity.ok(service.findAllTickets());
+    }
+
+    @PutMapping("/{ticketId}")
+    @Transactional
+    public ResponseEntity<Ticket> disableTicket(@PathVariable("ticketId") UUID ticketId) {
+        Ticket ticketUpdated = service.updateTicket(ticketId);
+
+        return ResponseEntity.ok(ticketUpdated);
     }
 }
