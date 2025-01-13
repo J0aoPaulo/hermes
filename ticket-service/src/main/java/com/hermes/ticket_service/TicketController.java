@@ -2,6 +2,7 @@ package com.hermes.ticket_service;
 
 import com.hermes.ticket_service.dto.CreateTicketRequest;
 import com.hermes.ticket_service.dto.TicketResponse;
+import com.hermes.ticket_service.enums.TicketPriority;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +39,19 @@ public class TicketController {
     @PutMapping("/{ticketId}")
     @Transactional
     public ResponseEntity<Ticket> disableTicket(@PathVariable("ticketId") UUID ticketId) {
-        Ticket ticketUpdated = service.updateTicket(ticketId);
+        Ticket ticketUpdated = service.updateTicketStatus(ticketId);
 
         return ResponseEntity.ok(ticketUpdated);
     }
 
-    @DeleteMapping("{/ticketId}")
+    @PatchMapping("/{ticketId}/priority")
+    @Transactional
+    ResponseEntity<String> updateTicketPriority(@PathVariable UUID ticketId, @RequestParam TicketPriority priority) {
+        service.updateTicketPriority(ticketId, priority);
+        return ResponseEntity.ok("Ticket " + ticketId + " updated successfully.");
+    }
+
+    @DeleteMapping("/{ticketId}")
     @Transactional
     public ResponseEntity<Void> deleteTicket(@PathVariable("ticketId") UUID ticketId) {
         service.deleteTicket(ticketId);

@@ -2,6 +2,7 @@ package com.hermes.ticket_service;
 
 import com.hermes.ticket_service.dto.CreateTicketRequest;
 import com.hermes.ticket_service.dto.TicketResponse;
+import com.hermes.ticket_service.enums.TicketPriority;
 import com.hermes.ticket_service.enums.TicketStatus;
 import com.hermes.ticket_service.exception.TicketNotFoundException;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    public Ticket updateTicket(UUID ticketId) {
+    public Ticket updateTicketStatus(UUID ticketId) {
         var ticket = repository.findTicketById(ticketId)
                 .orElseThrow(() -> new TicketNotFoundException("Ticket with id " + ticketId + " not found"));
 
@@ -48,5 +49,14 @@ public class TicketService {
                 .orElseThrow(() -> new TicketNotFoundException("Ticket with id \" + ticketId + \" not found"));
 
         repository.delete(ticket);
+    }
+
+    public Ticket updateTicketPriority(UUID ticketId, TicketPriority priority) {
+        var ticket = repository.findTicketById(ticketId)
+                .orElseThrow(() -> new TicketNotFoundException("Ticket with id " + ticketId + " not found"));
+
+        ticket.setPrioridade(priority);
+        repository.save(ticket);
+        return ticket;
     }
 }

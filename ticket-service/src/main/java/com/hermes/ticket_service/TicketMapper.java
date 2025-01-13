@@ -2,12 +2,15 @@ package com.hermes.ticket_service;
 
 import com.hermes.ticket_service.dto.CreateTicketRequest;
 import com.hermes.ticket_service.dto.TicketResponse;
+import com.hermes.ticket_service.enums.TicketCategory;
 import com.hermes.ticket_service.enums.TicketPriority;
 import com.hermes.ticket_service.enums.TicketStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static com.hermes.ticket_service.enums.TicketCategory.*;
 
 @Service
 public class TicketMapper {
@@ -19,7 +22,7 @@ public class TicketMapper {
                 .title(request.title())
                 .description(request.description())
                 .categoria(request.category())
-                .prioridade(TicketPriority.BAIXA)
+                .prioridade(TicketPriority.NAO_DEFINIDA)
                 .status(TicketStatus.ABERTO)
                 .createAt(LocalDateTime.now())
                 .build();
