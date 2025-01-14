@@ -13,21 +13,53 @@ services:
     environment:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
-      DB_URL: jdbc:postgresql://postgres:5432/user_service_db
+      DB_URL: jdbc:postgresql://user-db:5432/user_service_db
     depends_on:
       - discovery-service
-      - postgres
+      - user-db
 
-  postgres:
+  ticket-service:
+    build: ./ticket-service
+    ports:
+      - "8082:8082"
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_URL: jdbc:postgresql://ticket-db:5432/ticket_service_db
+    depends_on:
+      - discovery-service
+      - ticket-db
+
+  user-db:
     image: postgres:13
     environment:
       POSTGRES_DB: user_service_db
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - user_db_data:/var/lib/postgresql/data
+    networks:
+      - microservices-network
+
+  ticket-db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ticket_service_db
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5434:5432"
+    volumes:
+      - ticket_db_data:/var/lib/postgresql/data
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+    driver: bridge
 
 volumes:
-  postgres_data:
+  user_db_data:
+  ticket_db_data:

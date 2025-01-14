@@ -1,8 +1,8 @@
-package com.hermes.ticket_service.entity;
+package com.hermes.ticket_service;
 
-import com.hermes.ticket_service.entity.enums.TicketCategory;
-import com.hermes.ticket_service.entity.enums.TicketPriority;
-import com.hermes.ticket_service.entity.enums.TicketStatus;
+import com.hermes.ticket_service.enums.TicketCategory;
+import com.hermes.ticket_service.enums.TicketPriority;
+import com.hermes.ticket_service.enums.TicketStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -17,11 +17,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     @NonNull

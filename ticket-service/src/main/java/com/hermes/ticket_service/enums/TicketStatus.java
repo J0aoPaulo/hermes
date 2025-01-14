@@ -1,8 +1,7 @@
-package com.hermes.ticket_service.entity.enums;
+package com.hermes.ticket_service.enums;
 
 public enum TicketStatus {
     ABERTO,
     EM_ANDAMENTO,
-    RESOLVIDO,
     FECHADO
 }
