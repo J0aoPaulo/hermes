@@ -1,4 +1,4 @@
-package com.hermes.ticket_service;
+package com.hermes.ticket_service.ticket;
 
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;

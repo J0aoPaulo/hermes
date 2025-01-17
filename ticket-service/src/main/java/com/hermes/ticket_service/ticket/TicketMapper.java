@@ -1,16 +1,13 @@
-package com.hermes.ticket_service;
+package com.hermes.ticket_service.ticket;
 
 import com.hermes.ticket_service.dto.CreateTicketRequest;
 import com.hermes.ticket_service.dto.TicketResponse;
-import com.hermes.ticket_service.enums.TicketCategory;
 import com.hermes.ticket_service.enums.TicketPriority;
 import com.hermes.ticket_service.enums.TicketStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
-
-import static com.hermes.ticket_service.enums.TicketCategory.*;
 
 @Service
 public class TicketMapper {

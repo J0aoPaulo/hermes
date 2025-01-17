@@ -1,4 +1,4 @@
-package com.hermes.ticket_service;
+package com.hermes.ticket_service.ticket;
 
 import com.hermes.ticket_service.dto.CreateTicketRequest;
 import com.hermes.ticket_service.dto.TicketResponse;
