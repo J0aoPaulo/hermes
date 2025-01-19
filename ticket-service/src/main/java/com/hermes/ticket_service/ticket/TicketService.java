@@ -1,7 +1,7 @@
 package com.hermes.ticket_service.ticket;
 
-import com.hermes.ticket_service.dto.CreateTicketRequest;
-import com.hermes.ticket_service.dto.TicketResponse;
+import com.hermes.ticket_service.dto.request.CreateTicketRequest;
+import com.hermes.ticket_service.dto.response.TicketResponse;
 import com.hermes.ticket_service.enums.TicketPriority;
 import com.hermes.ticket_service.enums.TicketStatus;
 import com.hermes.ticket_service.exception.TicketNotFoundException;
@@ -22,8 +22,8 @@ public class TicketService {
         this.mapper = mapper;
     }
 
-    public UUID createTicket(CreateTicketRequest request, UUID userId) {
-        var ticket =  mapper.toTicket(request, userId);
+    public UUID createTicket(CreateTicketRequest request) {
+        var ticket =  mapper.toTicket(request);
 
         repository.save(ticket);
         return ticket.getId();
@@ -45,18 +45,17 @@ public class TicketService {
     }
 
     public void deleteTicket(UUID ticketId) {
-        var ticket = repository.findTicketById(ticketId)
-                .orElseThrow(() -> new TicketNotFoundException("Ticket with id \" + ticketId + \" not found"));
+        if(!repository.existsTicketById(ticketId))
+            throw new TicketNotFoundException(String.format("Ticket with id: %s not found", ticketId));
 
-        repository.delete(ticket);
+        repository.deleteTicketById(ticketId);
     }
 
-    public Ticket updateTicketPriority(UUID ticketId, TicketPriority priority) {
+    public void updateTicketPriority(UUID ticketId, TicketPriority priority) {
         var ticket = repository.findTicketById(ticketId)
                 .orElseThrow(() -> new TicketNotFoundException("Ticket with id " + ticketId + " not found"));
 
         ticket.setPrioridade(priority);
         repository.save(ticket);
-        return ticket;
     }
 }

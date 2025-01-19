@@ -1,4 +1,4 @@
-package com.hermes.ticket_service.dto;
+package com.hermes.ticket_service.dto.request;
 
 import com.hermes.ticket_service.enums.TicketCategory;
 import jakarta.persistence.EnumType;

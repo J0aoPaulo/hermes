@@ -1,9 +1,9 @@
 package com.hermes.user_service.user;
 
 import com.hermes.user_service.exception.UserNotFound;
-import com.hermes.user_service.user.dto.CreateUserRequest;
-import com.hermes.user_service.user.dto.UpdateUserRequest;
-import com.hermes.user_service.user.dto.UserResponse;
+import com.hermes.user_service.user.dto.request.CreateUserRequest;
+import com.hermes.user_service.user.dto.request.UpdateUserRequest;
+import com.hermes.user_service.user.dto.response.UserResponse;
 import com.hermes.user_service.exception.UserAlreadyExist;
 import org.springframework.stereotype.Service;
 
@@ -47,21 +47,18 @@ public class UserService {
     public User updateUser(UUID userId, UpdateUserRequest request) {
         var user = repository
                 .findById(userId)
-                .orElseThrow(() -> new UserNotFound("User with " + userId + " not found."));
+                .orElseThrow(() -> new UserNotFound(String.format("User with id: %s not found", userId)));;
 
         setUser(user, request);
         return user;
     }
 
-    public User getUserById(UUID userId) {
-        var user = repository
+    public UserResponse getUserById(UUID userId) {
+        return repository
                 .findById(userId)
-                .orElseThrow(() -> new UserNotFound("User with " + userId + " not found."));
-
-        if (!user.getActive())
-            throw new UserNotFound("User is disabled");
-
-        return user;
+                .filter(User::getActive)
+                .map(this.mapper::fromUser)
+                .orElseThrow(() -> new UserNotFound(String.format("User with id: %s not found", userId)));
     }
 
     public List<UserResponse> findAllUsers() {
@@ -69,5 +66,12 @@ public class UserService {
                 .stream()
                 .map(this.mapper::fromUser)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteUser(UUID userId) {
+        if(!repository.existsById(userId))
+            throw new UserNotFound(String.format("User with id: %s not found", userId));
+
+        repository.deleteById(userId);
     }
 }

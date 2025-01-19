@@ -1,4 +1,4 @@
-package com.hermes.user_service.user.dto;
+package com.hermes.user_service.user.dto.response;
 
 import com.hermes.user_service.user.User;
 import com.hermes.user_service.user.enums.Role;

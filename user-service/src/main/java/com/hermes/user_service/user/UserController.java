@@ -1,8 +1,8 @@
 package com.hermes.user_service.user;
 
-import com.hermes.user_service.user.dto.CreateUserRequest;
-import com.hermes.user_service.user.dto.UserResponse;
-import com.hermes.user_service.user.dto.UpdateUserRequest;
+import com.hermes.user_service.user.dto.request.CreateUserRequest;
+import com.hermes.user_service.user.dto.response.UserResponse;
+import com.hermes.user_service.user.dto.request.UpdateUserRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +32,9 @@ public class UserController {
         return ResponseEntity.created(URI.create("/api/v1/users/" + userId)).build();
     }
 
-    @PutMapping("/{userId}")
+    @PutMapping("/{user-id}")
     @Transactional
-    public ResponseEntity<UpdateUserRequest> updateUser(@PathVariable("userId") UUID userId,
+    public ResponseEntity<UpdateUserRequest> updateUser(@PathVariable("user-id") UUID userId,
                                                         @RequestBody @Valid UpdateUserRequest updateUserRequest)
     {
         var userUpdated = service.updateUser(userId, updateUserRequest);
@@ -47,21 +47,16 @@ public class UserController {
         return ResponseEntity.ok(service.findAllUsers());
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable("userId") UUID userId) {
-        var user = service.getUserById(userId);
-
-        return ResponseEntity.ok(new UserResponse(user));
+    @GetMapping("/{user-id}")
+    public ResponseEntity<UserResponse> getUser(@PathVariable("user-id") UUID userId) {
+        return ResponseEntity.ok(service.getUserById(userId));
     }
 
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/{user-id}")
     @Transactional
-    public ResponseEntity<Void> deleteUser(@PathVariable("userId") UUID userId) {
-        if(repository.existsById(userId)) {
-            repository.deleteById(userId);
-            return ResponseEntity.ok().build();
-        }
+    public ResponseEntity<Void> deleteUser(@PathVariable("user-id") UUID userId) {
+        service.deleteUser(userId);
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
 }

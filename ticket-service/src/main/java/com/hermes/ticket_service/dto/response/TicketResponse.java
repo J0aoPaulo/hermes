@@ -1,4 +1,4 @@
-package com.hermes.ticket_service.dto;
+package com.hermes.ticket_service.dto.response;
 
 import com.hermes.ticket_service.enums.TicketCategory;
 import com.hermes.ticket_service.enums.TicketPriority;

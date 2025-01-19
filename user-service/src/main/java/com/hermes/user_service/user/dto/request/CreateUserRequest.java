@@ -1,4 +1,4 @@
-package com.hermes.user_service.user.dto;
+package com.hermes.user_service.user.dto.request;
 
 
 import jakarta.validation.constraints.Email;

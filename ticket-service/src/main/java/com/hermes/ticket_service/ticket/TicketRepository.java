@@ -15,4 +15,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     Boolean existsByDescription(@NonNull String description);
 
     Optional<Ticket> findTicketById(@NonNull UUID id);
+
+    void deleteTicketById(UUID id);
+
+    boolean existsTicketById(UUID id);
 }

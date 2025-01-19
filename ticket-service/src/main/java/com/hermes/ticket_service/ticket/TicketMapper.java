@@ -1,25 +1,26 @@
 package com.hermes.ticket_service.ticket;
 
-import com.hermes.ticket_service.dto.CreateTicketRequest;
-import com.hermes.ticket_service.dto.TicketResponse;
+import com.hermes.ticket_service.dto.request.CreateTicketRequest;
+import com.hermes.ticket_service.dto.response.TicketResponse;
 import com.hermes.ticket_service.enums.TicketPriority;
 import com.hermes.ticket_service.enums.TicketStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 public class TicketMapper {
 
-    public Ticket toTicket(CreateTicketRequest request, UUID userId) {
+    public Ticket toTicket(CreateTicketRequest request) {
+
+        // Conseguir id do usuario com open feign
         return Ticket.builder()
                 .id(null)
                 .userId(userId)
                 .title(request.title())
                 .description(request.description())
                 .categoria(request.category())
-                .prioridade(TicketPriority.NAO_DEFINIDA)
+                .prioridade(TicketPriority.NOT_DEFINED)
                 .status(TicketStatus.ABERTO)
                 .createAt(LocalDateTime.now())
                 .build();
