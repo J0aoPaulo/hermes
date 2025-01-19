@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService service;
@@ -28,7 +28,7 @@ public class UserController {
     public ResponseEntity<Void> createCustomer(@RequestBody @Valid CreateUserRequest request) {
         var userId = service.createUser(request, Role.CUSTOMER);
 
-        return ResponseEntity.created(URI.create("/api/v1/user/customer/" + userId)).build();
+        return ResponseEntity.created(URI.create("/api/v1/users/customer/" + userId)).build();
     }
 
     @PostMapping("/technician")

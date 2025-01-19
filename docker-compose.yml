@@ -5,15 +5,22 @@ services:
     build: ./api-gateway
     ports:
       - "8080:8080"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka/
+    depends_on:
+      - discovery-service
     volumes:
-      - ./api-gateway/src:/app/src  # Monta o diretório local src para dentro do contêiner
+      - ./api-gateway/src:/app/src
 
   discovery-service:
     build: ./discovery-service
     ports:
       - "8761:8761"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka/
     volumes:
-      - ./discovery-service/src:/app/src  # Monta o diretório local src para dentro do contêiner
+      - ./discovery-service/src:/app/src
+
 
   user-service:
     build: ./user-service
@@ -23,11 +30,12 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_URL: jdbc:postgresql://user-db:5432/user_service_db
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka/
     depends_on:
       - discovery-service
       - user-db
     volumes:
-      - ./user-service/src:/app/src  # Monta o diretório local src para dentro do contêiner
+      - ./user-service/src:/app/src
 
   ticket-service:
     build: ./ticket-service
@@ -37,11 +45,12 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_URL: jdbc:postgresql://ticket-db:5432/ticket_service_db
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka/
     depends_on:
       - discovery-service
       - ticket-db
     volumes:
-      - ./ticket-service/src:/app/src  # Monta o diretório local src para dentro do contêiner
+      - ./ticket-service/src:/app/src
 
   user-db:
     image: postgres:13
