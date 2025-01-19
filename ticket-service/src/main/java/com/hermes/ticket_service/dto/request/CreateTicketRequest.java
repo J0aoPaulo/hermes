@@ -5,6 +5,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.UUID;
+
 public record CreateTicketRequest(
         @NotNull
         String title,
@@ -12,6 +14,7 @@ public record CreateTicketRequest(
         String description,
         @NotNull
         @Enumerated(EnumType.STRING)
-        TicketCategory category
+        TicketCategory category,
+        UUID userID
 ) {
 }

@@ -7,13 +7,13 @@ import com.hermes.ticket_service.enums.TicketStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class TicketMapper {
 
-    public Ticket toTicket(CreateTicketRequest request) {
+    public Ticket toTicket(CreateTicketRequest request, UUID userId) {
 
-        // Conseguir id do usuario com open feign
         return Ticket.builder()
                 .id(null)
                 .userId(userId)

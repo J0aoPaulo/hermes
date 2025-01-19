@@ -5,9 +5,12 @@ import com.hermes.ticket_service.dto.response.TicketResponse;
 import com.hermes.ticket_service.enums.TicketPriority;
 import com.hermes.ticket_service.enums.TicketStatus;
 import com.hermes.ticket_service.exception.TicketNotFoundException;
+import com.hermes.ticket_service.user.UserClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -16,14 +19,19 @@ public class TicketService {
 
     private final TicketRepository repository;
     private final TicketMapper mapper;
+    private final UserClient userClient;
 
-    public TicketService(TicketRepository repository, TicketMapper mapper) {
+    public TicketService(TicketRepository repository, TicketMapper mapper, UserClient userClient) {
         this.repository = repository;
         this.mapper = mapper;
+        this.userClient = userClient;
     }
 
     public UUID createTicket(CreateTicketRequest request) {
-        var ticket =  mapper.toTicket(request);
+        var user = Optional.of(userClient.findUserById(request.userID()))
+                .orElseThrow(() -> new NoSuchElementException("User not with this id not found"));
+
+        var ticket =  mapper.toTicket(request, user.userId());
 
         repository.save(ticket);
         return ticket.getId();
@@ -41,6 +49,7 @@ public class TicketService {
                 .orElseThrow(() -> new TicketNotFoundException("Ticket with id " + ticketId + " not found"));
 
         ticket.setStatus(TicketStatus.FECHADO);
+        repository.save(ticket);
         return ticket;
     }
 
