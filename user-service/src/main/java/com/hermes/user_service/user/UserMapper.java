@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserMapper {
 
-    public User toUser(CreateUserRequest request) {
+    public User toUser(CreateUserRequest request, Role role) {
         return User.builder()
                 .id(null)
                 .name(request.name())
                 .email(request.email())
-                .role(Role.CUSTOMER)
+                .role(role)
                 .build();
     }
 

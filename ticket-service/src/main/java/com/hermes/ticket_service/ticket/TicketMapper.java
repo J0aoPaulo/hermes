@@ -7,16 +7,15 @@ import com.hermes.ticket_service.enums.TicketStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 public class TicketMapper {
 
-    public Ticket toTicket(CreateTicketRequest request, UUID userId) {
+    public Ticket toTicket(CreateTicketRequest request) {
 
         return Ticket.builder()
                 .id(null)
-                .userId(userId)
+                .userId(request.userId())
                 .title(request.title())
                 .description(request.description())
                 .categoria(request.category())

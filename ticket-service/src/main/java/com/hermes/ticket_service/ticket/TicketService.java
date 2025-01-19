@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 public class TicketService {
 
     private final TicketRepository repository;
-    private final TicketMapper mapper;
     private final UserClient userClient;
+    private final TicketMapper mapper;
 
     public TicketService(TicketRepository repository, TicketMapper mapper, UserClient userClient) {
         this.repository = repository;
@@ -28,10 +28,10 @@ public class TicketService {
     }
 
     public UUID createTicket(CreateTicketRequest request) {
-        var user = Optional.of(userClient.findUserById(request.userID()))
+        var user = Optional.of(userClient.findUserById(request.userId()))
                 .orElseThrow(() -> new NoSuchElementException("User not with this id not found"));
 
-        var ticket =  mapper.toTicket(request, user.userId());
+        var ticket =  mapper.toTicket(request);
 
         repository.save(ticket);
         return ticket.getId();

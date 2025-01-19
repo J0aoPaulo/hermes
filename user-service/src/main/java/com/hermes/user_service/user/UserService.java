@@ -5,10 +5,11 @@ import com.hermes.user_service.user.dto.request.CreateUserRequest;
 import com.hermes.user_service.user.dto.request.UpdateUserRequest;
 import com.hermes.user_service.user.dto.response.UserResponse;
 import com.hermes.user_service.exception.UserAlreadyExist;
+import com.hermes.user_service.user.enums.Role;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,25 +24,25 @@ public class UserService {
         this.mapper = mapper;
     }
 
-    public UUID createUser(CreateUserRequest request) {
+    public UUID createUser(CreateUserRequest request, Role role) {
         if(repository.existsByEmail(request.email()))
             throw new UserAlreadyExist("User already exist in database");
 
-        var user = repository.save(mapper.toUser(request));
+        var user = repository.save(mapper.toUser(request, role));
         return user.getId();
     }
 
     private void setUser(User user, UpdateUserRequest request) {
-        var name = Optional.ofNullable(request.name()).orElse(user.getName());
-
-        var password = Optional.ofNullable(request.password()).orElse(user.getPassword());
-
-        var email = Optional.ofNullable(request.email()).orElse(user.getEmail());
-
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
+        mergeCustomer(user, request);
         repository.save(user);
+    }
+
+    private void mergeCustomer(User user, UpdateUserRequest request) {
+        if(StringUtils.isNotBlank(request.name())) user.setName(request.name());
+
+        if(StringUtils.isNotBlank(request.password())) user.setPassword(request.password());
+
+        if(StringUtils.isNotBlank(request.email())) user.setEmail(request.email());
     }
 
     public User updateUser(UUID userId, UpdateUserRequest request) {
