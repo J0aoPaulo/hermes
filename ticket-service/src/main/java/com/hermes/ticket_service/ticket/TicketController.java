@@ -1,7 +1,7 @@
-package com.hermes.ticket_service;
+package com.hermes.ticket_service.ticket;
 
-import com.hermes.ticket_service.dto.CreateTicketRequest;
-import com.hermes.ticket_service.dto.TicketResponse;
+import com.hermes.ticket_service.dto.request.CreateTicketRequest;
+import com.hermes.ticket_service.dto.response.TicketResponse;
 import com.hermes.ticket_service.enums.TicketPriority;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -22,12 +22,11 @@ public class TicketController {
         this.service = service;
     }
 
-    @PostMapping("/{userId}")
+    @PostMapping
     @Transactional
-    public ResponseEntity<Void> createTicket(@RequestBody @Valid CreateTicketRequest request,
-                                             @PathVariable UUID userId) {
+    public ResponseEntity<Void> createTicket(@RequestBody @Valid CreateTicketRequest request) {
 
-        UUID ticketId = service.createTicket(request, userId);
+        UUID ticketId = service.createTicket(request);
         return ResponseEntity.created(URI.create("/api/v1/tickets/" + ticketId)).build();
     }
 
@@ -36,24 +35,25 @@ public class TicketController {
         return ResponseEntity.ok(service.findAllTickets());
     }
 
-    @PutMapping("/{ticketId}")
+    @PutMapping("/{ticket-id}")
     @Transactional
-    public ResponseEntity<Ticket> disableTicket(@PathVariable("ticketId") UUID ticketId) {
-        Ticket ticketUpdated = service.updateTicketStatus(ticketId);
+    public ResponseEntity<Ticket> disableTicket(@PathVariable("ticket-id") UUID ticketId) {
+        Ticket ticketUpdated = service.closeTicket(ticketId);
 
         return ResponseEntity.ok(ticketUpdated);
     }
 
-    @PatchMapping("/{ticketId}/priority")
+    @PatchMapping("/{ticket-id}/priority")
     @Transactional
-    ResponseEntity<String> updateTicketPriority(@PathVariable UUID ticketId, @RequestParam TicketPriority priority) {
+    ResponseEntity<String> updateTicketPriority(@PathVariable("ticket-id") UUID ticketId, @RequestParam TicketPriority priority) {
         service.updateTicketPriority(ticketId, priority);
-        return ResponseEntity.ok("Ticket " + ticketId + " updated successfully.");
+
+        return ResponseEntity.ok(String.format("Ticket with id: %s update successfully", ticketId));
     }
 
-    @DeleteMapping("/{ticketId}")
+    @DeleteMapping("/{ticket-id}")
     @Transactional
-    public ResponseEntity<Void> deleteTicket(@PathVariable("ticketId") UUID ticketId) {
+    public ResponseEntity<Void> deleteTicket(@PathVariable("ticket-id") UUID ticketId) {
         service.deleteTicket(ticketId);
 
         return ResponseEntity.noContent().build();
