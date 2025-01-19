@@ -12,11 +12,14 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        ddl-auto: update
-      show-sql: true
+    show-sql: true
+    generate-ddl: true
+    open-in-view: false
 
 eureka:
   client:

@@ -28,14 +28,15 @@ public class UserController {
     public ResponseEntity<Void> createCustomer(@RequestBody @Valid CreateUserRequest request) {
         var userId = service.createUser(request, Role.CUSTOMER);
 
-        return ResponseEntity.created(URI.create("/api/v1/users/" + userId)).build();
+        return ResponseEntity.created(URI.create("/api/v1/user/customer/" + userId)).build();
     }
 
     @PostMapping("/technician")
     @Transactional
     public ResponseEntity<Void> createTechnician(@RequestBody @Valid CreateUserRequest request) {
-        service.createUser(request, Role.TECHNICIAN);
-        return ResponseEntity.ok().build();
+        var techId = service.createUser(request, Role.TECHNICIAN);
+
+        return ResponseEntity.created(URI.create("/api/v1/user/technician/" + techId)).build();
     }
 
     @PutMapping("/{user-id}")
