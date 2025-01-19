@@ -38,7 +38,7 @@ public class TicketController {
     @PutMapping("/{ticket-id}")
     @Transactional
     public ResponseEntity<Ticket> disableTicket(@PathVariable("ticket-id") UUID ticketId) {
-        Ticket ticketUpdated = service.updateTicketStatus(ticketId);
+        Ticket ticketUpdated = service.closeTicket(ticketId);
 
         return ResponseEntity.ok(ticketUpdated);
     }

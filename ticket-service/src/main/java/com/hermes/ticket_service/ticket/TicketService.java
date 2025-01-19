@@ -44,7 +44,7 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    public Ticket updateTicketStatus(UUID ticketId) {
+    public Ticket closeTicket(UUID ticketId) {
         var ticket = repository.findTicketById(ticketId)
                 .orElseThrow(() -> new TicketNotFoundException("Ticket with id " + ticketId + " not found"));
 

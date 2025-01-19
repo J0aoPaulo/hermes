@@ -23,9 +23,9 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping("/costumer")
+    @PostMapping("/customer")
     @Transactional
-    public ResponseEntity<Void> createCostumer(@RequestBody @Valid CreateUserRequest request) {
+    public ResponseEntity<Void> createCustomer(@RequestBody @Valid CreateUserRequest request) {
         var userId = service.createUser(request, Role.CUSTOMER);
 
         return ResponseEntity.created(URI.create("/api/v1/users/" + userId)).build();
