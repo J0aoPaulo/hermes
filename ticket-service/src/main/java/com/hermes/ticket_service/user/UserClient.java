@@ -13,6 +13,5 @@ import java.util.UUID;
 public interface UserClient {
 
     @GetMapping("/{user-id}")
-    @NonNull
     UserResponse findUserById(@PathVariable("user-id") UUID userId);
 }

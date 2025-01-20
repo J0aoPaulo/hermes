@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -27,9 +26,14 @@ public class TicketService {
         this.userClient = userClient;
     }
 
+    private Ticket verifyTicket(UUID ticketId) {
+        return repository.findTicketById(ticketId)
+                .orElseThrow(() -> new TicketNotFoundException("Ticket with id " + ticketId + " not found"));
+    }
+
     public UUID createTicket(CreateTicketRequest request) {
-        var user = Optional.of(userClient.findUserById(request.userId()))
-                .orElseThrow(() -> new NoSuchElementException("User not with this id not found"));
+        if(userClient.findUserById(request.userId()) == null)
+            throw new NoSuchElementException(String.format("User with id: %s not found", request.userId()));
 
         var ticket =  mapper.toTicket(request);
 
@@ -44,13 +48,11 @@ public class TicketService {
                 .collect(Collectors.toList());
     }
 
-    public Ticket closeTicket(UUID ticketId) {
-        var ticket = repository.findTicketById(ticketId)
-                .orElseThrow(() -> new TicketNotFoundException("Ticket with id " + ticketId + " not found"));
+    public void closeTicket(UUID ticketId) {
+        var ticket = verifyTicket(ticketId);
 
         ticket.setStatus(TicketStatus.FECHADO);
         repository.save(ticket);
-        return ticket;
     }
 
     public void deleteTicket(UUID ticketId) {
@@ -61,10 +63,27 @@ public class TicketService {
     }
 
     public void updateTicketPriority(UUID ticketId, TicketPriority priority) {
-        var ticket = repository.findTicketById(ticketId)
-                .orElseThrow(() -> new TicketNotFoundException("Ticket with id " + ticketId + " not found"));
+        var ticket = verifyTicket(ticketId);
 
         ticket.setPrioridade(priority);
         repository.save(ticket);
     }
+
+    public TicketResponse allocateTicket(UUID ticketId) {
+        var ticket = verifyTicket(ticketId);
+
+        ticket.setStatus(TicketStatus.FECHADO);
+        repository.save(ticket);
+        return mapper.fromTicket(ticket);
+    }
+
+    public List<TicketResponse> findAllOpenTickets() {
+        return repository.findAll()
+                .stream()
+                .filter(t -> t.getStatus() == TicketStatus.ABERTO)
+                .map(this.mapper::fromTicket)
+                .collect(Collectors.toList());
+    }
+
+
 }

@@ -32,30 +32,41 @@ public class TicketController {
 
     @GetMapping()
     public ResponseEntity<List<TicketResponse>> findAllTickets() {
-        return ResponseEntity.ok(service.findAllTickets());
+        var allTickets = service.findAllTickets();
+        return ResponseEntity.ok(allTickets);
+    }
+
+    @GetMapping("/open")
+    public ResponseEntity<List<TicketResponse>> findAllOpenTickets() {
+        var openTickets = service.findAllOpenTickets();
+        return ResponseEntity.ok(openTickets);
     }
 
     @PutMapping("/{ticket-id}")
     @Transactional
-    public ResponseEntity<Ticket> disableTicket(@PathVariable("ticket-id") UUID ticketId) {
-        Ticket ticketUpdated = service.closeTicket(ticketId);
-
-        return ResponseEntity.ok(ticketUpdated);
+    public ResponseEntity<String> disableTicket(@PathVariable("ticket-id") UUID ticketId) {
+        service.closeTicket(ticketId);
+        return ResponseEntity.ok("Ticket closed successfully!");
     }
 
-    @PatchMapping("/{ticket-id}/priority")
+    @PutMapping("/{ticket-id}")
+    @Transactional
+    public ResponseEntity<TicketResponse> allocateTicket(@PathVariable("ticket-id") UUID ticketId) {
+        var allocatedTicket = service.allocateTicket(ticketId);
+        return ResponseEntity.ok(allocatedTicket);
+    }
+
+    @PutMapping("/{ticket-id}/priority")
     @Transactional
     ResponseEntity<String> updateTicketPriority(@PathVariable("ticket-id") UUID ticketId, @RequestParam TicketPriority priority) {
         service.updateTicketPriority(ticketId, priority);
-
-        return ResponseEntity.ok(String.format("Ticket with id: %s update successfully", ticketId));
+        return ResponseEntity.ok(String.format("Ticket with id: %s update successfully!", ticketId));
     }
 
     @DeleteMapping("/{ticket-id}")
     @Transactional
     public ResponseEntity<Void> deleteTicket(@PathVariable("ticket-id") UUID ticketId) {
         service.deleteTicket(ticketId);
-
         return ResponseEntity.noContent().build();
     }
 }
