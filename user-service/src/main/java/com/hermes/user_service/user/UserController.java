@@ -31,14 +31,6 @@ public class UserController {
         return ResponseEntity.created(URI.create("/api/v1/users/customer/" + userId)).build();
     }
 
-    @PostMapping("/technician")
-    @Transactional
-    public ResponseEntity<Void> createTechnician(@RequestBody @Valid CreateUserRequest request) {
-        var techId = service.createUser(request, Role.TECHNICIAN);
-
-        return ResponseEntity.created(URI.create("/api/v1/user/technician/" + techId)).build();
-    }
-
     @PutMapping("/{user-id}")
     @Transactional
     public ResponseEntity<UpdateUserRequest> updateUser(@PathVariable("user-id") UUID userId,
