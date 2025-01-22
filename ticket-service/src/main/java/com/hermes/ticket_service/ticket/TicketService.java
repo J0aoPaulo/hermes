@@ -65,7 +65,7 @@ public class TicketService {
     public void updateTicketPriority(UUID ticketId, TicketPriority priority) {
         var ticket = verifyTicket(ticketId);
 
-        ticket.setPrioridade(priority);
+        ticket.setPriority(priority);
         repository.save(ticket);
     }
 

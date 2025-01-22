@@ -26,7 +26,7 @@ public class Ticket {
 
     @Column(nullable = false)
     @NonNull
-    private UUID userId;
+    private UUID technicianId;
 
     @Column(nullable = false)
     @NonNull
@@ -38,11 +38,11 @@ public class Ticket {
 
     @Enumerated(EnumType.STRING)
     @NonNull
-    private TicketCategory categoria;
+    private TicketCategory category;
 
     @Enumerated(EnumType.STRING)
     @NonNull
-    private TicketPriority prioridade;
+    private TicketPriority priority;
 
     @Enumerated(EnumType.STRING)
     @NonNull
