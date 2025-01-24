@@ -1,0 +1,6 @@
+required:
+  username: name is required
+  password: password is required
+  email: email is required
+  specialization: specialization is required
+  experience: experience is required

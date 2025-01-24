@@ -1,4 +1,4 @@
-package com.hermes.technician_service.entity;
+package com.hermes.technician_service.Technician;
 
 import com.hermes.technician_service.enums.Specialization;
 import com.hermes.technician_service.enums.ExperienceLevel;
@@ -12,33 +12,37 @@ import java.util.UUID;
 @Entity
 @Table(name = "technicians")
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @Getter
 @Setter
-@Builder
 public class Technician {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NonNull
     @Column(nullable = false)
     private String name;
 
+    @NonNull
     @Column(nullable = false)
     private String email;
 
+    @NonNull
     @Column(nullable = false)
     private String password;
 
+    @NonNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Specialization specialization;
 
+    @NonNull
     @Column(nullable = false)
     private boolean availability;
 
+    @NonNull
     @Column(nullable = false)
     private ExperienceLevel experienceLevel;
 
@@ -47,6 +51,20 @@ public class Technician {
     @Column(name = "ticket_id")
     private List<UUID> currentTicketIds = new ArrayList<>();
 
+    @NonNull
     @Column(nullable = false)
-    private boolean active = true;
+    private boolean active;
+
+    @Builder
+    public Technician(UUID id, String name, String email, String password, Specialization specialization,
+                      boolean availability, ExperienceLevel experienceLevel, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.specialization = specialization;
+        this.availability = availability;
+        this.experienceLevel = experienceLevel;
+        this.active = active;
+    }
 }
