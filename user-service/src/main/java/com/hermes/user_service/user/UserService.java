@@ -28,7 +28,8 @@ public class UserService {
         if(repository.existsByEmail(request.email()))
             throw new UserAlreadyExist("User already exist in database");
 
-        var user = repository.save(mapper.toUser(request, role));
+        var user = mapper.toUser(request, role);
+        repository.save(user);
         return user.getId();
     }
 

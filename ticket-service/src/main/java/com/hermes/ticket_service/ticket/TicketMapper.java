@@ -15,11 +15,11 @@ public class TicketMapper {
 
         return Ticket.builder()
                 .id(null)
-                .userId(request.userId())
+                .technicianId(request.userId())
                 .title(request.title())
                 .description(request.description())
-                .categoria(request.category())
-                .prioridade(TicketPriority.NOT_DEFINED)
+                .category(request.category())
+                .priority(TicketPriority.NOT_DEFINED)
                 .status(TicketStatus.ABERTO)
                 .createAt(LocalDateTime.now())
                 .build();
@@ -29,8 +29,8 @@ public class TicketMapper {
         return new TicketResponse(
                 ticket.getTitle(),
                 ticket.getDescription(),
-                ticket.getCategoria(),
-                ticket.getPrioridade(),
+                ticket.getCategory(),
+                ticket.getPriority(),
                 ticket.getStatus(),
                 ticket.getCreateAt()
         );

@@ -42,21 +42,21 @@ public class TicketController {
         return ResponseEntity.ok(openTickets);
     }
 
-    @PutMapping("/{ticket-id}")
+    @PutMapping("/close/{ticket-id}")
     @Transactional
     public ResponseEntity<String> disableTicket(@PathVariable("ticket-id") UUID ticketId) {
         service.closeTicket(ticketId);
         return ResponseEntity.ok("Ticket closed successfully!");
     }
 
-    @PutMapping("/{ticket-id}")
+    @PutMapping("/assign/{ticket-id}")
     @Transactional
     public ResponseEntity<TicketResponse> allocateTicket(@PathVariable("ticket-id") UUID ticketId) {
         var allocatedTicket = service.allocateTicket(ticketId);
         return ResponseEntity.ok(allocatedTicket);
     }
 
-    @PutMapping("/{ticket-id}/priority")
+    @PutMapping("/priority/{ticket-id}")
     @Transactional
     ResponseEntity<String> updateTicketPriority(@PathVariable("ticket-id") UUID ticketId, @RequestParam TicketPriority priority) {
         service.updateTicketPriority(ticketId, priority);

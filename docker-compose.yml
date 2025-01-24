@@ -52,6 +52,21 @@ services:
     volumes:
       - ./ticket-service/src:/app/src
 
+  technician-service:
+    build: ./technician-service
+    ports:
+      - "8083:8083"
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_URL: jdbc:postgresql://technician-db:5432/technician_service_db
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka/
+    depends_on:
+      - discovery-service
+      - technician-db
+    volumes:
+      - ./technician-service/src:/app/src
+
   user-db:
     image: postgres:13
     environment:
@@ -70,10 +85,22 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5434:5432"
+      - "5433:5432"
     volumes:
       - ticket_db_data:/var/lib/postgresql/data
+
+  technician-db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: technician_service_db
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5434:5432"
+    volumes:
+      - technician_db_data:/var/lib/postgresql/data
 
 volumes:
   user_db_data:
   ticket_db_data:
+  technician_db_data:
