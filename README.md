@@ -1,74 +1,84 @@
-# 🔧 Sistema de Helpdesk
+# 🔧 Sistema de Helpdesk 
 
-Bem-vindo ao projeto **Sistema de Helpdesk**! Este repositório apresenta uma solução completa para gestão de chamados e suporte técnico em cenários empresariais diversos.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Java Version](https://img.shields.io/badge/Java-21%2B-blue)](https://openjdk.java.net/)
 
-## 💡 O que é um Sistema de Helpdesk?
-Imagine um sistema como uma "central de atendimento digital" onde clientes podem relatar problemas técnicos e empresas podem gerenciar e resolver essas solicitações de forma organizada e eficiente.
+Bem-vindo ao **Sistema de Helpdesk** - uma solução escalável para gestão de chamados técnicos, construída com arquitetura de microsserviços e pronta para ambientes cloud!
 
----
-
-## 🌐 Contexto Real: Como Funciona na Prática
-
-### Cenário 1: Empresa de Tecnologia
-Uma empresa de software recebe diversos chamados de clientes:
-
-- 🔷 Um cliente não consegue instalar o software.
-- 🔷 Outro reporta um bug no sistema.
-- 🔷 Um terceiro precisa de uma orientação técnica.
-
-### Cenário 2: Departamento de TI de uma Grande Empresa
-O setor de TI precisa gerenciar:
-
-- 🔷 Problemas de infraestrutura.
-- 🔷 Suporte a computadores e sistemas internos.
-- 🔷 Solicitações de novos equipamentos.
+## 🚀 Visão Geral
+Uma central de atendimento digital onde:
+- **Clientes** reportam problemas técnicos
+- **Equipes de TI** gerenciam solicitações
+- **SLA automatizado** prioriza demandas críticas
+- **Múltiplos níveis** de suporte técnico
 
 ---
 
-## 🔎 Funcionalidades Detalhadas do Sistema
+## 🏗️ Arquitetura do Sistema
 
-### 🔖 1. Registro de Chamados
-
-Cada chamado terá:
-- 🔍 **Título** descritivo.
-- 🕵️ **Descrição** detalhada do problema.
-- 🔢 **Categoria** (Hardware, Software, Rede, etc.).
-- 🕛 **Prioridade** (Baixa, Média, Alta, Crítica).
-- 🔒 **Status** (Aberto, Em Andamento, Resolvido, Fechado).
-
-### 💡 2. Fluxo de Atendimento
-
-1. 📢 Cliente abre um chamado.
-2. 🔄 Sistema classifica automaticamente.
-3. 📨 Técnico é notificado.
-4. 🔧 Técnico analisa e assume o chamado.
-5. 🏦 Resolução e registro de ações.
-6. 🌐 Fechamento com feedback do cliente.
-
-### 🏋️‍♂️ 3. Níveis de Atendimento
-
-- **Nível 1**: 💡 Suporte básico, resolução de problemas simples.
-- **Nível 2**: 🦜 Problemas mais complexos, requer conhecimento técnico específico.
-- **Nível 3**: 📚 Problemas avançados, pode envolver desenvolvimento ou engenharia.
+**Componentes Principais:**
+- **API Gateway**: Roteamento de requisições (Spring Cloud Gateway)
+- **Discovery Service**: Registro de microsserviços (Eureka)
+- **Ticket Service**: Gestão de chamados (Prioridades, Categorização)
+- **User Service**: Autenticação e gestão de usuários
+- **RabbitMQ**: Comunicação assíncrona entre serviços
+- **PostgreSQL**: Armazenamento de dados transacionais
 
 ---
 
-## 🔎 Tecnologias Utilizadas
+## ⚙️ Funcionalidades Detalhadas
 
-- 📊 **Backend**: Java, Spring Boot
-- 📊 **Banco de Dados**: MySQL ou PostgreSQL
-- 📊 **Mensageria**: RabbitMQ
-- 📊 **Docker**: Para conteinerização
-- 📊 **Cloud**: Deploy em plataformas como AWS ou Azure
+### 🎯 Núcleo do Sistema
+| Funcionalidade          | Descrição                                                                 |
+|-------------------------|---------------------------------------------------------------------------|
+| Triagem Automática      | Classificação por IA baseada em histórico                                 |
+| Escalonamento Inteligente | Priorização dinâmica (Ex: "Crítica" para falhas em produção)             |
+| Dashboard Analítico      | Métricas em tempo real (Tickets abertos, MTTR, SLA compliance)           |
+| Notificações Multi-canal | Email, Slack e Webhooks para atualizações                                |
 
----
+### 🔄 Fluxo de Atendimento (Exemplo)
+```mermaid
+graph TD
+    A[Cliente abre ticket] --> B{Sistema classifica}
+    B -->|Prioridade Alta| C[Técnico Nível 3]
+    B -->|Prioridade Média| D[Técnico Nível 2]
+    B -->|Prioridade Baixa| E[Técnico Nível 1]
+    C --> F[Resolução Técnica]
+    D --> F
+    E --> F
+    F --> G[Feedback do Cliente]
+```
 
-## 🛠️ Como Contribuir
+## 🛠️ Stack Tecnológica
 
-1. Fork este repositório.
-2. Crie um branch com sua feature: `git checkout -b minha-feature`.
-3. Commit suas alterações: `git commit -m 'Adiciona nova feature'`.
-4. Dê push no branch: `git push origin minha-feature`.
-5. Abra um Pull Request.
+### **Backend**
+- **Spring Boot** - Framework principal para desenvolvimento de microsserviços
+- **Spring Cloud** - Configuração distribuída e service discovery
+- **OpenFeign** - Comunicação entre microsserviços
+- **Hibernate Validator** - Validação de dados nas APIs
+- **Lombok** - Redução de boilerplate code
 
----
+### **Banco de Dados**
+- **PostgreSQL** - Armazenamento transacional de tickets e usuários
+
+### **Infraestrutura**
+- **Docker** - Conteinerização dos serviços
+- **Docker Compose** - Orquestração do ambiente local
+- **RabbitMQ** - Sistema de mensageria para eventos assíncronos
+- **Eureka Server** - Service registry para microsserviços
+
+### **Monitoramento**
+- **Spring Boot Actuator** - Métricas de saúde dos serviços
+- **Prometheus** - Coleta de métricas de desempenho
+- **Grafana** - Dashboard para visualização de dados
+
+### **Testes**
+- **JUnit 5** - Framework de testes unitários
+
+## 🤝 Contribuição
+
+1. Clone o projeto
+2. Cria a branch da sua feature (`git checkout -b feature/AmazingFeature`)
+3. Faça o commit das suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Realize o push para branch (`git push origin feature/AmazingFeature`)
+5. Abra um pull request
