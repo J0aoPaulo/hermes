@@ -33,7 +33,6 @@ Uma central de atendimento digital onde:
 |-------------------------|---------------------------------------------------------------------------|
 | Triagem Automática      | Classificação por IA baseada em histórico                                 |
 | Escalonamento Inteligente | Priorização dinâmica (Ex: "Crítica" para falhas em produção)             |
-| Dashboard Analítico      | Métricas em tempo real (Tickets abertos, MTTR, SLA compliance)           |
 | Notificações Multi-canal | Email, Slack e Webhooks para atualizações                                |
 
 ### 🔄 Fluxo de Atendimento (Exemplo)
